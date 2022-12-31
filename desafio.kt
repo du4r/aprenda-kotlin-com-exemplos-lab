@@ -1,21 +1,37 @@
 // [Template no Kotlin Playground](https://pl.kotl.in/WcteahpyN)
 
-enum class Nivel { BASICO, INTERMEDIARIO, DIFICIL }
+enum class Nivel { BASICO, INTERMEDIARIO, AVANCADO }
 
-class Usuario
+data class Usuario(var nome: String, var nivelDeConhecimento: Nivel)
 
-data class ConteudoEducacional(var nome: String, val duracao: Int = 60)
+data class ConteudoEducacional(var nome: String = "kotlin para android" , var duracao: Int?)
 
-data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>) {
-
-    val inscritos = mutableListOf<Usuario>()
-    
-    fun matricular(usuario: Usuario) {
-        TODO("Utilize o parâmetro $usuario para simular uma matrícula (usar a lista de $inscritos).")
+class Formacao(val nome: String, var conteudos: List<ConteudoEducacional> ) {
+ 	
+    var inscritos = mutableListOf<Usuario>()
+  
+    fun matricular(vararg usuario: Usuario) {
+        for(user in usuario){
+            
+            inscritos.add(user)
+                
+           	when(user.nivelDeConhecimento){
+                Nivel.AVANCADO -> conteudos.map{ it.duracao = 20}
+                Nivel.INTERMEDIARIO -> conteudos.map{ it.duracao = 40}
+                Nivel.BASICO -> conteudos.map{ it.duracao = 60}
+                else -> conteudos.map{ it.duracao = 60}
+            }   
+            
+            println("Novo Usuario: $user Cadastrado!")
+        }
     }
 }
 
 fun main() {
-    TODO("Analise as classes modeladas para este domínio de aplicação e pense em formas de evoluí-las.")
-    TODO("Simule alguns cenários de teste. Para isso, crie alguns objetos usando as classes em questão.")
+    
+    val kotlinExp = Formacao("kotlin", listOf() )
+    val user = Usuario("Eduardo", Nivel.BASICO)
+    val user2 = Usuario("Maria", Nivel.BASICO)
+  	
+	kotlinExp.matricular(user, user2)
 }
