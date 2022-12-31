@@ -4,7 +4,7 @@ enum class Nivel { BASICO, INTERMEDIARIO, AVANCADO }
 
 data class Usuario(var nome: String, var nivelDeConhecimento: Nivel)
 
-data class ConteudoEducacional(var nome: String = "kotlin para android" , var duracao: Int?)
+data class ConteudoEducacional(var nome: String , var duracao: Int?)
 
 class Formacao(val nome: String, var conteudos: List<ConteudoEducacional> ) {
  	
@@ -28,10 +28,8 @@ class Formacao(val nome: String, var conteudos: List<ConteudoEducacional> ) {
 }
 
 fun main() {
-    
-    val kotlinExp = Formacao("kotlin", listOf() )
     val user = Usuario("Eduardo", Nivel.BASICO)
     val user2 = Usuario("Maria", Nivel.BASICO)
-  	
+  	val kotlinExp = Formacao("kotlin", listOf(ConteudoEducacional("kotlin para android", null)))
 	kotlinExp.matricular(user, user2)
 }
